@@ -3,3 +3,4 @@ opencv-python-headless
 numpy
 torch
 yolov5
+streamlit_webrtc
