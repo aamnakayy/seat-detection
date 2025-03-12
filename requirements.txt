@@ -1,8 +1,2 @@
 streamlit==1.43.1
-streamlit==1.43.1
-opencv-python-headless==4.11.0.86
-numpy==2.1.1
-torch==2.6.0
-yolov5==7.0.14
 streamlit-webrtc==0.47.9
-pandas==2.2.3
