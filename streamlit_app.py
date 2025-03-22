@@ -11,5 +11,5 @@ picture = st.camera_input("Take a picture")
 
 # Display the captured image (if any)
 if picture is not None:
-    st.image(picture, caption="Captured Image", use_column_width=True)
+    st.image(picture, caption="Captured Image", use_container_width=True)
     st.write("Image captured successfully! You can now process it with your model.")
