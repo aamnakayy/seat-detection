@@ -3,9 +3,15 @@ import torch
 from PIL import Image
 import io
 import numpy as np
-import cv2
 
-# Load pre-trained YOLOv5 model (upgrade to yolov5m)
+# Debug: Verify cv2 import
+try:
+    import cv2
+except ImportError as e:
+    st.error(f"Failed to import cv2: {e}")
+    st.stop()
+
+# Load pre-trained YOLOv5 model (yolov5m)
 @st.cache_resource
 def load_model():
     model = torch.hub.load("ultralytics/yolov5", "yolov5m", pretrained=True)
@@ -59,7 +65,7 @@ if picture is not None:
     # Filter detections
     chairs = detections[detections['name'] == 'chair']
     people = detections[detections['name'] == 'person']
-    belongings = detections[detections['name'].isin(['backpack', 'handbag', 'bottle', 'suitcase', 'book', 'laptop'])]
+    belongings = detections[detections['name'].isin(['backpack', 'handbag', 'suitcase', 'book', 'laptop'])]
 
     # Classify chairs as empty or occupied
     chair_status = {}
@@ -73,7 +79,6 @@ if picture is not None:
             iou = calculate_iou(chair_box, person_box)
             distance = calculate_center_distance(chair_box, person_box)
             chair_width = chair_box[2] - chair_box[0]
-            # Lower IoU threshold and add proximity check
             if iou > 0.3 or (distance < chair_width * 1.5 and iou > 0.1):
                 is_occupied = True
                 break
